@@ -17,7 +17,10 @@ public class ExampleNodeReader : MonoBehaviour
     //public TMP_Text digitalTwinFeedbackTMP;
     public TMP_Text uiFeedbackTMP;
     public string dataFromOPCUANode;
-
+    public bool emergencystop;
+    public Material emergency;
+    public Material noemergency;
+    public GameObject emergencyobject;
 
     void Start()
     {
@@ -56,6 +59,18 @@ public class ExampleNodeReader : MonoBehaviour
 
     private void Update()
     {
-        uiFeedbackTMP.text = "Factory machine " + factoryMachineID + " just registered " + nodeBeingMonitored + " as " + dataFromOPCUANode;
+        if (uiFeedbackTMP != null)
+        {
+            uiFeedbackTMP.text = "Factory machine " + factoryMachineID + " just registered " + nodeBeingMonitored + " as " + dataFromOPCUANode;
+        }
+        if (dataFromOPCUANode == "True")
+        {
+            emergencyobject.GetComponent<MeshRenderer>().material = noemergency;
+        }
+        else
+        {
+            emergencyobject.GetComponent<MeshRenderer>().material = emergency;
+        }
     }
+
 }
